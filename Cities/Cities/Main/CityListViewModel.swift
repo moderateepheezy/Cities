@@ -27,15 +27,21 @@ final class CityListViewModel {
     let cells: [TableViewCellViewModel.Type] = [CityListCellModel.self]
 
     // MARK: - Private Properties
-    let url: URL?
+    private let url: URL?
 
-    fileprivate(set) var dataSet: [TableViewCellViewModel] = [] {
+    private var _datSet: [TableViewCellViewModel] = [] {
+        didSet {
+            dataSet = _datSet
+        }
+    }
+
+    private(set) var dataSet: [TableViewCellViewModel] = [] {
         didSet {
             delegate.notify { $0.cityListViewModelUpdated(self) }
         }
     }
 
-    // MARK: - Private Properties
+    // MARK: - Life Cycle
     init(url: URL?) {
         self.url = url
     }
@@ -53,10 +59,24 @@ final class CityListViewModel {
 
         do {
             let cities = try JSONDecoder().decode(Cities.self, from: data)
-             self.dataSet = cities.map(CityListCellModel.init)
+            let models = cities.map(CityListCellModel.init).sorted()
+            self._datSet = models
         } catch let error {
             print(error.localizedDescription)
             delegate.notify { $0.cityListViewModel(self, error: CitiesError.decodingError) }
+        }
+    }
+
+    func filterCity(by text: String?) {
+        guard let text = text, !text.isEmpty else {
+            self.dataSet = _datSet
+            return
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            self.dataSet = self._datSet.filter { viewModel -> Bool in
+                let cityListCellViewModel = viewModel as? CityListCellModel
+                return cityListCellViewModel?.cityDisplayName.lowercased().contains(text.lowercased()) ?? false
+            }
         }
     }
 

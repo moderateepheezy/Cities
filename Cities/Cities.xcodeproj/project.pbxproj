@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9458EAF524F4656B003FE8C4 /* CityListViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9458EAF424F4656B003FE8C4 /* CityListViewControllerFactory.swift */; };
 		94AFB78E24F1F54400079231 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AFB78D24F1F54400079231 /* AppDelegate.swift */; };
 		94AFB79724F1F54800079231 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94AFB79624F1F54800079231 /* Assets.xcassets */; };
 		94AFB79A24F1F54800079231 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94AFB79824F1F54800079231 /* LaunchScreen.storyboard */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9458EAF424F4656B003FE8C4 /* CityListViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListViewControllerFactory.swift; sourceTree = "<group>"; };
 		94AFB78A24F1F54400079231 /* Cities.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cities.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94AFB78D24F1F54400079231 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94AFB78F24F1F54400079231 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				94AFB7BE24F31BE200079231 /* Config */,
 				94AFB79124F1F54400079231 /* CityListViewController.swift */,
 				94AFB7B824F2020900079231 /* CityListViewModel.swift */,
+				9458EAF424F4656B003FE8C4 /* CityListViewControllerFactory.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			files = (
 				94AFB7C924F32ED800079231 /* CityListCell.swift in Sources */,
 				94AFB7C224F32BD800079231 /* TableViewCellViewModel.swift in Sources */,
+				9458EAF524F4656B003FE8C4 /* CityListViewControllerFactory.swift in Sources */,
 				94AFB7C024F32B7100079231 /* TableViewCellRepresentable.swift in Sources */,
 				94AFB7BB24F2023B00079231 /* SceneDelegate.swift in Sources */,
 				94AFB7BD24F31BDA00079231 /* City.swift in Sources */,

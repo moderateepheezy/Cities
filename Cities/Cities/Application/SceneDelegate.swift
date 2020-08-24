@@ -18,10 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             window = UIWindow(windowScene: windowScene)
             window?.makeKeyAndVisible()
-            window?.rootViewController = UINavigationController(rootViewController: CityListViewController())
+            window?.rootViewController = UINavigationController(rootViewController: CityListViewControllerFactory.make())
             AppDelegate.standard.window = window
         }
     }
-
 }
 
