@@ -14,8 +14,10 @@ final class CityListCellModel {
     private let city: City
 
     // MARK: - Public Properties
-    var cityDisplayName: String { return "\(city.name), \(city.country)" }
-    var cityCoordinate: City.Coordinate { return city.coordinate }
+    var cityName: String { city.name }
+    var country: String { city.country }
+    var cityDisplayName: String { return "\(cityName), \(country)" }
+    var cityMap: CityMap { CityMap(title: cityDisplayName, city: city) }
 
     // MARK: - Lifecycle
     init(city: City) {
@@ -30,10 +32,11 @@ extension CityListCellModel: TableViewCellRepresentable {
 extension CityListCellModel: Comparable {
 
     static func == (lhs: CityListCellModel, rhs: CityListCellModel) -> Bool {
-        lhs.cityDisplayName == rhs.cityDisplayName
+        lhs.cityDisplayName == rhs.cityDisplayName &&
+            lhs.city.coordinate == rhs.city.coordinate
     }
 
     static func < (lhs: CityListCellModel, rhs: CityListCellModel) -> Bool {
-        (lhs.city.name, lhs.city.country) < (rhs.city.name, rhs.city.country)
+        (lhs.cityName, lhs.country) < (rhs.cityName, rhs.country)
     }
 }

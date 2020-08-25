@@ -11,7 +11,7 @@ import UIKit
 final class CityListViewControllerFactory {
     static func make() -> UIViewController {
         let url = Bundle.main.url(forResource: "cities", withExtension: "json")
-        let viewModel =  CityListViewModel(url: url)
+        let viewModel =  CityListViewModel(dataSource: DataSource(url: url))
         return CityListViewController(viewModel: viewModel)
     }
 }

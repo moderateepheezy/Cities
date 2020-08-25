@@ -23,13 +23,17 @@ struct City: Codable {
         case name = "name"
     }
 
-    struct Coordinate : Codable {
-        let latitude : Float
-        let longitude : Float
+    struct Coordinate : Codable, Equatable {
+        let latitude : Double
+        let longitude : Double
 
         enum CodingKeys: String, CodingKey {
             case latitude = "lat"
             case longitude = "lon"
+        }
+
+        static func == (lhs: Coordinate, rhs: Coordinate) -> Bool {
+            lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
         }
     }
 }

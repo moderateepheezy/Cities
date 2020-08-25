@@ -16,7 +16,8 @@ class CityListViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         let url = Bundle.main.url(forResource: "cities", withExtension: "json")
-        sut = CityListViewModel(url: url)
+        let dataSource = DataSource(url: url)
+        sut = CityListViewModel(dataSource: dataSource)
     }
 
     override func tearDown() {
@@ -29,16 +30,17 @@ class CityListViewModelTests: XCTestCase {
         let exp = expectation(description: "There is no resource with cities.txt")
 
         let url = Bundle.main.url(forResource: "cities", withExtension: "txt")
-        let viewModel = CityListViewModel(url: url)
+        let dataSource = DataSource(url: url)
+        let viewModel = CityListViewModel(dataSource: dataSource)
 
         let delegate = Delegate(
             onError: { error in
                 switch error {
-                case CityListViewModel.CitiesError.invalidURL:
+                case DataSource.CitiesError.invalidURL:
                     exp.fulfill()
-                case CityListViewModel.CitiesError.invalidData:
+                case DataSource.CitiesError.invalidData:
                     XCTFail()
-                case CityListViewModel.CitiesError.decodingError:
+                case DataSource.CitiesError.decodingError:
                     XCTFail()
                 default:
                     XCTFail()
@@ -59,16 +61,17 @@ class CityListViewModelTests: XCTestCase {
         let exp = expectation(description: "Cannot decode Cities")
 
         let url = Bundle.main.url(forResource: "invalidData", withExtension: "json")
-        let viewModel = CityListViewModel(url: url)
+        let dataSource = DataSource(url: url)
+        let viewModel = CityListViewModel(dataSource: dataSource)
 
         let delegate = Delegate(
             onError: { error in
                 switch error {
-                case CityListViewModel.CitiesError.invalidURL:
+                case DataSource.CitiesError.invalidURL:
                     XCTFail()
-                case CityListViewModel.CitiesError.invalidData:
+                case DataSource.CitiesError.invalidData:
                     XCTFail()
-                case CityListViewModel.CitiesError.decodingError:
+                case DataSource.CitiesError.decodingError:
                     exp.fulfill()
                 default:
                     XCTFail()
@@ -85,23 +88,53 @@ class CityListViewModelTests: XCTestCase {
     }
 
     func testCityListViewModel_Delegate_Select_City() {
-        //{"country":"UA","name":"Hurzuf","_id":707860,"coord":{"lon":34.283333,"lat":44.549999}},
-        
         let exp = expectation(description: "Invalid City Selected")
 
         let delegate = Delegate(
             onError: { _ in XCTFail() },
-            onUpdate: { exp.fulfill() },
+            onUpdate: {
+            },
             onSelectCity: { cityCellViewModel in
-                XCTAssertEqual(cityCellViewModel.cityDisplayName, "Hurzuf, UA")
+                XCTAssertEqual(cityCellViewModel.cityDisplayName, "665 Site Colonia, US")
+                exp.fulfill()
             }
         )
 
         sut.delegate.add(delegate)
         sut.reloadData()
 
-        sut.onSelectCity(index: 0)
+        self.sut.onSelectCity(index: 2)
 
         waitForExpectations(timeout: 1.0, handler: nil)
+    }
+
+    func testSearchFilter() {
+
+        let exp = expectation(description: "Invalid City Selected")
+
+        let url = Bundle.main.url(forResource: "citydemo", withExtension: "json")
+        let dataSource = DataSource(url: url)
+        let viewModel = CityListViewModel(dataSource: dataSource)
+
+        viewModel.reloadData()
+
+        viewModel.filterCity(by: "oN")
+
+        let expectedResult = ["Mbongoté, CF", "Néméyong II, CM", "Pondok Genteng, ID"].sorted()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            let searchedResult = viewModel.dataSet.map { viewModel -> String? in
+                let model = viewModel as? CityListCellModel
+                return model?.cityDisplayName
+                }.compactMap { $0 }.sorted()
+
+            if searchedResult == expectedResult {
+                exp.fulfill()
+            } else {
+                XCTFail()
+            }
+        }
+
+        wait(for: [exp], timeout: 5.0)
     }
 }

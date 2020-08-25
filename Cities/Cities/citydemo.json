@@ -1,0 +1,12 @@
+[
+    {"country":"TZ","name":"Masama","_id":154733,"coord":{"lon":37.183331,"lat":-3.23333}},
+    {"country":"ID","name":"Purukcahu","_id":1630349,"coord":{"lon":114.583328,"lat":-0.58333}},
+    {"country":"CM","name":"Néméyong II","_id":2224928,"coord":{"lon":13.5,"lat":2.91667}},
+    {"country":"ID","name":"Pondok Genteng","_id":6716279,"coord":{"lon":99.0709,"lat":3.2245}},
+    {"country":"CF","name":"Mbongoté","_id":2384618,"coord":{"lon":18.283331,"lat":4.25}},
+    {"country":"FR","name":"Sainte-Nathalène","_id":2980388,"coord":{"lon":1.25,"lat":44.916672}},
+    {"country":"FR","name":"Gennetines","_id":3016325,"coord":{"lon":2.92181,"lat":46.636089}},
+    {"country":"FR","name":"Le Boulay","_id":3005112,"coord":{"lon":1.04988,"lat":49.591599}},
+    {"country":"IE","name":"Belgard","_id":3315268,"coord":{"lon":-6.39667,"lat":53.303059}},
+    {"country":"IE","name":"Cluain Meala","_id":2965353,"coord":{"lon":-7.70389,"lat":52.355}}
+]
